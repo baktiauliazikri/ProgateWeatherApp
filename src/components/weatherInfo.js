@@ -1,27 +1,33 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 
-const WeatherInfo = () => {
+const WeatherInfo = ({ weatherData }) => {
     return (
-        <View style={styles.marginTop20}>
-            <Text style={styles.text}>The weather of Jakarta</Text>
-            <Text style={[styles.temperature, styles.marginTop20]}>15 C</Text>
-            <View style={[styles.rowContainer, styles.marginTop20]}>
-                <Image
-                    source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2106/2106101.png' }}
-                    style={styles.weatherIcon}
-                />
-                <Text style={[styles.text, styles.bold]}>Clouds</Text>
-            </View>
-            <Text style={styles.text}>overcast clouds</Text>
-            <View style={[styles.rowContainer, styles.marginTop20]}>
-                <Text style={[styles.text, styles.bold]}>Visibility :</Text>
-                <Text style={[styles.text, styles.marginLeft15]}>10 km</Text>
-            </View>
-            <View style={[styles.rowContainer, styles.marginTop20]}>
-                <Text style={[styles.text, styles.bold]}>Wind Speed :</Text>
-                <Text style={[styles.text, styles.marginLeft15]}>10 m/s</Text>
-            </View>
+        <View style={styles.container}>
+            {weatherData && (
+                <View style={styles.marginTop20}>
+                    <Text style={styles.text}>The weather of {weatherData.name}</Text>
+                    <Text style={[styles.temperature, styles.marginTop20]}>
+                        {weatherData.main.temp} °C
+                    </Text>
+                    <View style={[styles.rowContainer, styles.marginTop20]}>
+                        <Image
+                            source={{ uri: 'https://cdn-icons-png.flaticon.com/512/2106/2106101.png' }}
+                            style={styles.weatherIcon}
+                        />
+                        <Text style={[styles.text, styles.bold]}>{weatherData.weather[0].main}</Text>
+                    </View>
+                    <Text style={styles.text}>{weatherData.weather[0].description}</Text>
+                    <View style={[styles.rowContainer, styles.marginTop20]}>
+                        <Text style={[styles.text, styles.bold]}>Visibility :</Text>
+                        <Text style={[styles.text, styles.marginLeft15]}>{weatherData.visibility} km</Text>
+                    </View>
+                    <View style={[styles.rowContainer, styles.marginTop20]}>
+                        <Text style={[styles.text, styles.bold]}>Wind Speed :</Text>
+                        <Text style={[styles.text, styles.marginLeft15]}>{weatherData.wind.speed} m/s</Text>
+                    </View>
+                </View>
+            )}
         </View>
     )
 }
